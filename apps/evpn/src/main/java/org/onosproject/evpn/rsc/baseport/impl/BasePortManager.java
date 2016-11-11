@@ -18,7 +18,6 @@ package org.onosproject.evpn.rsc.baseport.impl;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -42,6 +41,7 @@ import org.onlab.packet.MacAddress;
 import org.onlab.util.KryoNamespace;
 import org.onosproject.core.ApplicationId;
 import org.onosproject.core.CoreService;
+import org.onosproject.evpn.rsc.EtcdResponse;
 import org.onosproject.evpn.rsc.baseport.BasePortService;
 import org.onosproject.net.DeviceId;
 import org.onosproject.net.Host;
@@ -72,9 +72,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Sets;
-import com.justinsb.etcd.EtcdResult;
 
 /**
  * Provides implementation of the BasePort APIs.
@@ -287,25 +285,19 @@ public class BasePortManager implements BasePortService {
     }
 
     @Override
-    public void processEtcdResponse(EtcdResult response) {
+    public void processEtcdResponse(EtcdResponse response) {
         checkNotNull(response, RESPONSE_NOT_NULL);
         if (response.action.equals("delete")) {
-            String[] list = response.node.key.split("/");
+            String[] list = response.key.split("/");
             VirtualPortId basePortId = VirtualPortId
                     .portId(list[list.length - 1]);
             Set<VirtualPortId> basePortIds = Sets.newHashSet(basePortId);
             removePorts(basePortIds);
             virtualPortService.removePorts(basePortIds);
         } else {
-            ObjectMapper mapper = new ObjectMapper();
-            try {
-                JsonNode subnode = mapper.readTree(response.node.value);
-                Collection<VirtualPort> basePorts = changeJsonToSub(subnode);
-                createPorts(basePorts);
-                virtualPortService.createPorts(basePorts);
-            } catch (IOException e) {
-                log.debug("Json format errer {}", e.toString());
-            }
+            Collection<VirtualPort> basePorts = changeJsonToSub(response.value);
+            createPorts(basePorts);
+            virtualPortService.createPorts(basePorts);
         }
     }
 

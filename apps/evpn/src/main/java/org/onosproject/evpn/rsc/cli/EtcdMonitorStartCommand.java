@@ -61,7 +61,7 @@ public class EtcdMonitorStartCommand extends AbstractShellCommand {
             if (ipAddress != null) {
                 String url = "http://" + ipAddress + ":2379";
                 EtcdMonitor etcdMonitor = new EtcdMonitor(url);
-                etcdMonitor.etcdMonitor();
+                etcdMonitor.etcdMonitor(null);
             }
             if (query != null) {
                 if (target.equals("baseport")) {

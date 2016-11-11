@@ -14,7 +14,26 @@
  * limitations under the License.
  */
 
+package org.onosproject.evpn.rsc;
+
+import com.fasterxml.jackson.databind.JsonNode;
+
 /**
- *  EVPN application.
+ * Representation of a Etcd response.
  */
-package com.justinsb.etcd;
+public class EtcdResponse {
+    public String action;
+    public String key;
+    public JsonNode value;
+    long modifiedIndex;
+    long createdIndex;
+
+    public EtcdResponse(String action, String key, JsonNode value, long mIndex,
+                        long cIndex) {
+        this.action = action;
+        this.key = key;
+        this.value = value;
+        this.modifiedIndex = mIndex;
+        this.createdIndex = cIndex;
+    }
+}

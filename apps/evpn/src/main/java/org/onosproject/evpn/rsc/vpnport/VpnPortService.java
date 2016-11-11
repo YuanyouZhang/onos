@@ -18,10 +18,10 @@ package org.onosproject.evpn.rsc.vpnport;
 
 import java.util.Collection;
 
+import org.onosproject.evpn.rsc.EtcdResponse;
 import org.onosproject.evpn.rsc.VpnPort;
 import org.onosproject.evpn.rsc.VpnPortId;
 
-import com.justinsb.etcd.EtcdResult;
 
 /**
  * Service for interacting with the inventory of VPN port.
@@ -79,7 +79,7 @@ public interface VpnPortService {
      *
      * @param response Etcd response
      */
-    void processEtcdResponse(EtcdResult response);
+    void processEtcdResponse(EtcdResponse response);
 
     /**
      * Adds the specified listener to Vpn Port manager.
