@@ -18,10 +18,9 @@ package org.onosproject.evpn.rsc.vpninstance;
 
 import java.util.Collection;
 
+import org.onosproject.evpn.rsc.EtcdResponse;
 import org.onosproject.evpn.rsc.VpnInstance;
 import org.onosproject.evpn.rsc.VpnInstanceId;
-
-import com.justinsb.etcd.EtcdResult;
 
 /**
  * Service for interacting with the inventory of VPN instance.
@@ -79,5 +78,5 @@ public interface VpnInstanceService {
      *
      * @param response Etcd response
      */
-    void processEtcdResponse(EtcdResult response);
+    void processEtcdResponse(EtcdResponse response);
 }

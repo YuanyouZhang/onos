@@ -20,6 +20,7 @@ import java.util.Collection;
 
 import org.onlab.packet.IpAddress;
 import org.onlab.packet.MacAddress;
+import org.onosproject.evpn.rsc.EtcdResponse;
 import org.onosproject.net.DeviceId;
 import org.onosproject.vtnrsc.FixedIp;
 import org.onosproject.vtnrsc.TenantId;
@@ -27,7 +28,6 @@ import org.onosproject.vtnrsc.TenantNetworkId;
 import org.onosproject.vtnrsc.VirtualPort;
 import org.onosproject.vtnrsc.VirtualPortId;
 
-import com.justinsb.etcd.EtcdResult;
 
 /**
  * Service for interacting with the inventory of base port.
@@ -135,5 +135,5 @@ public interface BasePortService {
      *
      * @param response Etcd response
      */
-    void processEtcdResponse(EtcdResult response);
+    void processEtcdResponse(EtcdResponse response);
 }
